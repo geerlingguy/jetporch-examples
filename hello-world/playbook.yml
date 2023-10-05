@@ -1,0 +1,14 @@
+- name: sample playbook
+
+  groups:
+    - all
+
+  sudo: root
+
+  tasks:
+
+    - !shell
+      cmd: echo hi
+
+    - !apt
+      package: redis
