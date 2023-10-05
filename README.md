@@ -36,13 +36,27 @@ $ jetp --version
 
 TODO: See [this comment](https://github.com/geerlingguy/ansible-for-devops/issues/404#issuecomment-1747846798).
 
+### UTM
+
+Currently the easiest way to get a local Linux VM up and running with SSH access from the host on my Mac is via UTM.
+
+Assuming you have [Homebrew installed]() and have a copy of the [Ubuntu 22.04 Server for arm64 ISO](), here are the steps to build a VM for JetPorch testing:
+
+  1. `brew install --cask utm`
+  1. Link the `utmctl` CLI utility somewhere you can use it: `sudo ln -sf /Applications/UTM.app/Contents/MacOS/utmctl /usr/local/bin/utmctl`
+  1. Open UTM, create a new VM, and select the Ubuntu Server ISO.
+  1. Follow the Ubuntu server setup wizard and get it set up with a user account you'd like to use.
+  1. Once installation is complete, make sure you eject the ISO and reboot.
+
 Note: Currently sudo password support is missing in JetPorch. For now, you need to run `visudo` and make sure the user account you're using for access has passwordless sudo enabled.
 
-On an Ubuntu system, this means ensuring the `%sudo` line looks like:
+On an Ubuntu system, this means you need to run `visudo` and make sure the `%sudo` line looks like:
 
 ```
 %sudo  ALL=(ALL) NOPASSWD:ALL
 ```
+
+Run the command `ip a` to find the IP address of your UTM Linux VM, and use that in your inventory file to connect to the VM. (In my case, `192.168.64.3`.)
 
 ## License
 

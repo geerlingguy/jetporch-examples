@@ -1,0 +1,13 @@
+- name: Install and configure Apache HTTP Server.
+  groups:
+    - all
+
+  sudo: root
+
+  roles:
+    - {role: redis, vars: {redis_port: 5000}, tags: ['redis']}
+
+  tasks:
+
+    - !echo
+      msg: "Apache is ready to go!"

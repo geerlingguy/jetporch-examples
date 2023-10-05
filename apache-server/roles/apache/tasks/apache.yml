@@ -1,0 +1,32 @@
+- !facts
+  {}
+
+- !echo
+  msg: "OS distro detected={{ jet_os_flavor }}"
+
+- !dnf
+  package: httpd
+  with:
+    condition: (eq jet_os_flavor "EL")
+
+- !apt
+  package: apache2
+  with:
+    condition: (eq jet_os_flavor "Debian")
+
+# TODO: Parameterize the filesystem path, username.
+- !template
+  src: apache.conf.hb
+  dest: /etc/apache/apache.conf
+  attributes:
+     owner: redis
+     group: redis
+     mode: 0o640
+  and:
+     notify: restart apache
+
+# TODO: Parameterize the service name.
+- !sd_service
+  service: apache2
+  started: true
+  enabled: true

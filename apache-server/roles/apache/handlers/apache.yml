@@ -1,0 +1,6 @@
+# TODO: Parameterize the service name.
+- !sd_service
+  service: apache2
+  restart: true
+  with:
+     subscribe: restart apache
